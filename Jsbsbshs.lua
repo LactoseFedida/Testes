@@ -81,7 +81,7 @@ function CyberCodersModule.Show(callback)
     gui.Parent = lp:WaitForChild("PlayerGui")
 
     local main = Instance.new("Frame", gui)
-    main.Size = UDim2.fromScale(0.65, 0.82)
+    main.Size = UDim2.fromScale(0.65, 0.85)
     main.Position = UDim2.fromScale(0.5, 0.5)
     main.AnchorPoint = Vector2.new(0.5, 0.5)
     main.BackgroundColor3 = Color3.fromRGB(12, 10, 22)
@@ -110,6 +110,29 @@ function CyberCodersModule.Show(callback)
     subtitle.TextSize = 20
     subtitle.TextColor3 = Color3.fromRGB(215, 180, 255)
 
+    -- Mascote girando (NÃO REMOVIDO)
+    local mascotHolder = Instance.new("Frame", main)
+    mascotHolder.Position = UDim2.fromScale(0.5, 0.37)
+    mascotHolder.Size = UDim2.fromScale(0.22, 0.22)
+    mascotHolder.AnchorPoint = Vector2.new(0.5, 0.5)
+    mascotHolder.BackgroundTransparency = 1
+
+    local mascot = Instance.new("ImageLabel", mascotHolder)
+    mascot.Size = UDim2.fromScale(1, 1)
+    mascot.Position = UDim2.fromScale(0.5, 0.5)
+    mascot.AnchorPoint = Vector2.new(0.5, 0.5)
+    mascot.BackgroundTransparency = 1
+    mascot.Image = "rbxassetid://6646175684"
+    mascot.ScaleType = Enum.ScaleType.Fit
+    Instance.new("UIAspectRatioConstraint", mascot).AspectRatio = 1
+
+    local idleRotate = TweenService:Create(
+        mascotHolder,
+        TweenInfo.new(2.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
+        {Rotation = 360}
+    )
+    idleRotate:Play()
+
     local mascotText = Instance.new("TextLabel", main)
     mascotText.Position = UDim2.fromScale(0.2, 0.52)
     mascotText.Size = UDim2.fromScale(0.6, 0.06)
@@ -121,7 +144,7 @@ function CyberCodersModule.Show(callback)
 
     local box = Instance.new("TextBox", main)
     box.Position = UDim2.fromScale(0.1, 0.6)
-    box.Size = UDim2.fromScale(0.8, 0.12)
+    box.Size = UDim2.fromScale(0.8, 0.1)
     box.PlaceholderText = "Put Key here"
     box.Font = Enum.Font.Gotham
     box.TextSize = 20
@@ -131,8 +154,8 @@ function CyberCodersModule.Show(callback)
     Instance.new("UICorner", box).CornerRadius = UDim.new(0,16)
 
     local verify = Instance.new("TextButton", main)
-    verify.Position = UDim2.fromScale(0.1, 0.74)
-    verify.Size = UDim2.fromScale(0.8, 0.11)
+    verify.Position = UDim2.fromScale(0.1, 0.72)
+    verify.Size = UDim2.fromScale(0.8, 0.1)
     verify.Text = "Execute Script"
     verify.Font = Enum.Font.GothamBold
     verify.TextSize = 22
@@ -141,23 +164,42 @@ function CyberCodersModule.Show(callback)
     verify.BorderSizePixel = 0
     Instance.new("UICorner", verify).CornerRadius = UDim.new(0,18)
 
+    -- Botão Copy Key Link (NÃO REMOVIDO)
+    local getkey = Instance.new("TextButton", main)
+    getkey.Position = UDim2.fromScale(0.1, 0.84)
+    getkey.Size = UDim2.fromScale(0.8, 0.065)
+    getkey.Text = "Copy Key Link"
+    getkey.Font = Enum.Font.GothamBold
+    getkey.TextSize = 18
+    getkey.TextColor3 = Color3.fromRGB(30,20,50)
+    getkey.BackgroundColor3 = Color3.fromRGB(200,180,255)
+    getkey.BorderSizePixel = 0
+    Instance.new("UICorner", getkey).CornerRadius = UDim.new(0,14)
+
+    -- Botão YouTube (NOVO)
     local howtoget = Instance.new("TextButton", main)
-    howtoget.Position = UDim2.fromScale(0.1, 0.88)
-    howtoget.Size = UDim2.fromScale(0.8, 0.08)
+    howtoget.Position = UDim2.fromScale(0.1, 0.915)
+    howtoget.Size = UDim2.fromScale(0.8, 0.065)
     howtoget.Text = "   How to get Key (YouTube)"
     howtoget.Font = Enum.Font.GothamBold
-    howtoget.TextSize = 17
+    howtoget.TextSize = 16
     howtoget.TextColor3 = Color3.fromRGB(255,255,255)
-    howtoget.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+    howtoget.BackgroundColor3 = Color3.fromRGB(200,0,0)
     howtoget.BorderSizePixel = 0
-    Instance.new("UICorner", howtoget).CornerRadius = UDim.new(0,16)
+    Instance.new("UICorner", howtoget).CornerRadius = UDim.new(0,14)
 
     local ytIcon = Instance.new("ImageLabel", howtoget)
     ytIcon.Size = UDim2.fromScale(0.08, 0.6)
     ytIcon.Position = UDim2.fromScale(0.05, 0.5)
     ytIcon.AnchorPoint = Vector2.new(0, 0.5)
     ytIcon.BackgroundTransparency = 1
-    ytIcon.Image = "rbxassetid://13825848216" -- YouTube Icon
+    ytIcon.Image = "rbxassetid://13825848216"
+
+    getkey.MouseButton1Click:Connect(function()
+        Platoboost.CopyLink()
+        mascotText.Text = "Key link copied! Paste it in your browser."
+        mascotText.TextColor3 = Color3.fromRGB(180,160,255)
+    end)
 
     howtoget.MouseButton1Click:Connect(function()
         local url = "https://youtu.be/zBuS-86pQUM?si=UvBlxRisDTmAJJav"
@@ -170,7 +212,7 @@ function CyberCodersModule.Show(callback)
             mascotText.Text = "Link copied! Paste it in your browser."
         end
 
-        mascotText.TextColor3 = Color3.fromRGB(255, 180, 180)
+        mascotText.TextColor3 = Color3.fromRGB(255,180,180)
     end)
 
     verify.MouseButton1Click:Connect(function()
@@ -178,6 +220,7 @@ function CyberCodersModule.Show(callback)
             mascotText.Text = "Correct Key! Congratulations"
             mascotText.TextColor3 = Color3.fromRGB(0,255,0)
             task.wait(1.2)
+            idleRotate:Cancel()
             gui:Destroy()
             callback(true)
         else
