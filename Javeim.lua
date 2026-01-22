@@ -349,6 +349,6 @@ end
 -- EXPORTAR A BIBLIOTECA
 -- ========================================
 
-return function(key)
-    return SafetyLibrary.new(key)
+return function()
+    return SafetyLibrary.new()
 end
